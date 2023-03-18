@@ -1,0 +1,5 @@
+module.exports = [
+  "0x11AEe790d712f96a595016615e76BD02A400EA7C",
+  "0x5e0d4D650fC75155D01987ac0581AD1711617aFc",
+  "ipfs://",
+];

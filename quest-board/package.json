@@ -1,0 +1,28 @@
+{
+  "name": "hardhat-project",
+  "scripts": {
+    "compile": "npm run cpy && npx hardhat compile",
+    "test": "npm run cpy && REPORT_GAS=true npx hardhat test",
+    "node": "npx hardhat node",
+    "_predeploy": "npm run test",
+    "deploy": "npx hardhat run scripts/deploy.ts --network $npm_config_network",
+    "verify": "npx hardhat verify $npm_config_contractaddress --network $npm_config_network --constructor-args argument.ts",
+    "cpy-community-portal": "rm -rf ./contracts/CommunityPortal && cd ../community-portal && cp -rf contracts/ICommunityPortal.sol ../quest-board/contracts/Interface/ICommunityPortal.sol && cp -rf contracts/ ../quest-board/contracts/CommunityPortal/",
+    "cpy-quest-checker": "cd ../quest-checker && cp -rf contracts/IQuestChecker.sol ../quest-board/contracts/Interface/IQuestChecker.sol",
+    "cpy-quest-checker-creater": "cd ../quest-checker-creater && cp -rf contracts/IQuestCheckerCreater.sol ../quest-board/contracts/Interface/IQuestCheckerCreater.sol",
+    "cpy-prize-poap": "cd ../prize-poap && cp -rf contracts/IPrizePoap.sol ../quest-board/contracts/Interface/IPrizePoap.sol",
+    "cpy": "rm -rf ./contracts/Interface && mkdir ./contracts/Interface && npm run cpy-community-portal && npm run cpy-quest-checker && npm run cpy-quest-checker-creater && npm run cpy-prize-poap"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^2.0.2",
+    "hardhat": "^2.13.0",
+    "prettier": "^2.8.4",
+    "prettier-plugin-solidity": "^1.1.3"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.8.2",
+    "axios": "^1.3.4",
+    "dotenv": "^16.0.3",
+    "erc5192": "^0.0.1"
+  }
+}
