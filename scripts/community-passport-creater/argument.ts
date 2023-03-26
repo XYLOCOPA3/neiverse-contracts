@@ -1,0 +1,3 @@
+import { COMMUNITY_PASSPORT_BEACON_ADDRESS } from "../const";
+
+module.exports = [COMMUNITY_PASSPORT_BEACON_ADDRESS];

@@ -1,0 +1,31 @@
+{
+  "name": "hardhat-project",
+  "scripts": {
+    "clean": "npx hardhat clean",
+    "compile": "npm run cpy && npx hardhat compile",
+    "test-cpy": "if [ ! -e './contracts/test' ]; then mkdir ./contracts/test; fi",
+    "pretest": "npm run cpy && npm run test-cpy",
+    "test": "REPORT_GAS=true npx hardhat test",
+    "node": "npx hardhat node",
+    "predeploy": "npm run test",
+    "deploy": "npx hardhat run scripts/deploy.ts --network $npm_config_network",
+    "preupgrade": "npm run test",
+    "upgrade": "npx hardhat run scripts/upgrade.ts --network $npm_config_network",
+    "verify": "npx hardhat verify $npm_config_contractaddress --network $npm_config_network --constructor-args argument.ts",
+    "cpy": ""
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^2.0.2",
+    "@openzeppelin/hardhat-upgrades": "^1.22.1",
+    "hardhat": "^2.13.0",
+    "prettier": "^2.8.4",
+    "prettier-plugin-solidity": "^1.1.3"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.8.2",
+    "@openzeppelin/contracts-upgradeable": "^4.8.2",
+    "axios": "^1.3.4",
+    "dotenv": "^16.0.3",
+    "erc5192": "^0.0.1"
+  }
+}
