@@ -90,13 +90,12 @@ contract QuestBoard is
   /// @param page_ ページ番号
   /// @param pageSize_ 1ページあたりのサイズ
   /// @return list クエストリスト
-  /// @return length リスト長さ
   function getQuestList(
     uint256 page_,
     uint256 pageSize_
-  ) external view returns (IQuestBoard.Quest[] memory list, uint256 length) {
+  ) external view returns (IQuestBoard.Quest[] memory list) {
     require(pageSize_ > 0, "page size must be positive");
-    length = _questBoard.length;
+    uint256 length = _questBoard.length;
     uint256 actualSize = pageSize_;
     if ((page_ + 1) * pageSize_ > length) {
       actualSize = length;

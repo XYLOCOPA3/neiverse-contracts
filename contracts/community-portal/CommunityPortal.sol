@@ -73,17 +73,16 @@ contract CommunityPortal is
   /// @param page_ ページ番号
   /// @param pageSize_ 1ページあたりのサイズ
   /// @return list コミュニティリスト
-  /// @return length リスト長さ
   function getCommunityList(
     uint256 page_,
     uint256 pageSize_
   )
     external
     view
-    returns (ICommunityPortal.Community[] memory list, uint256 length)
+    returns (ICommunityPortal.Community[] memory list)
   {
     require(pageSize_ > 0, "page size must be positive");
-    length = _communityList.length;
+    uint256 length = _communityList.length;
     uint256 actualSize = pageSize_;
     if ((page_ + 1) * pageSize_ > length) {
       actualSize = length;

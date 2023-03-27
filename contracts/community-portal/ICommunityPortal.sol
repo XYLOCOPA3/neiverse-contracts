@@ -62,11 +62,10 @@ interface ICommunityPortal {
   /// @param page_ ページ番号
   /// @param pageSize_ 1ページあたりのサイズ
   /// @return list コミュニティリスト
-  /// @return length リスト長さ
   function getCommunityList(
     uint256 page_,
     uint256 pageSize_
-  ) external view returns (Community[] memory list, uint256 length);
+  ) external view returns (Community[] memory list);
 
   /// @dev コミュニティの総数を取得
   /// @return length コミュニティの総数

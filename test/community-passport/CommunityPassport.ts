@@ -106,15 +106,12 @@ describe("CommunityPassport", function () {
 
       const page = 0;
       const pageSize = 100;
-      const result = await communityPassport.contract1.getPassportList(
+      const passportList = await communityPassport.contract1.getPassportList(
         page,
         pageSize,
       );
-      const passportList = result[0];
-      const length = result[1];
       const passport = passportList[1];
 
-      expect(length).to.equal(2, "length");
       expect(passportList.length).to.equal(2, "length");
       expect(passport.passportURI).to.equal("baseURI1firstURI1", "passportURI");
       expect(passport.user).to.equal(user3.address, "user");
@@ -140,15 +137,12 @@ describe("CommunityPassport", function () {
 
       const page = 0;
       const pageSize = 100;
-      const result = await communityPassport.contract1.getUserList(
+      const userList = await communityPassport.contract1.getUserList(
         page,
         pageSize,
       );
-      const userList = result[0];
-      const length = result[1];
       const user = userList[1];
 
-      expect(length).to.equal(2, "length");
       expect(userList.length).to.equal(2, "length");
       expect(user).to.equal(user3.address, "user");
     });

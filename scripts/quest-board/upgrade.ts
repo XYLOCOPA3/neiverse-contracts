@@ -3,7 +3,7 @@ import { QUEST_BOARD_PROXY_ADDRESS } from "../const";
 
 async function main() {
   console.log("---------------------------------------------");
-  console.log("--- Start QuestBoard Upgrade -----------------");
+  console.log("--- Start QuestBoard Upgrade ----------------");
   console.log("---------------------------------------------");
   console.log("");
 
@@ -28,6 +28,10 @@ async function main() {
 
   console.log("Completed upgrade");
 
+  // アップグレード完了直後にverifyすると失敗するので10秒待つ
+  console.log("Waiting for 10 seconds before verification...");
+  await new Promise((resolve) => setTimeout(resolve, 10000));
+
   console.log("--- Verify ----------------------------------");
 
   console.log("Verifying...");
@@ -41,7 +45,7 @@ async function main() {
 
   console.log("");
   console.log("---------------------------------------------");
-  console.log("--- End QuestBoard Upgrade -------------------");
+  console.log("--- End QuestBoard Upgrade ------------------");
   console.log("---------------------------------------------");
 }
 

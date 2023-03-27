@@ -25,6 +25,10 @@ async function main() {
 
   console.log("Completed upgrade");
 
+  // アップグレード完了直後にverifyすると失敗するので10秒待つ
+  console.log("Waiting for 10 seconds before verification...");
+  await new Promise((resolve) => setTimeout(resolve, 10000));
+
   console.log("--- Verify ----------------------------------");
 
   console.log("Verifying...");

@@ -88,24 +88,22 @@ interface ICommunityPassport is IERC721Upgradeable {
   /// @param page_ ページ番号
   /// @param pageSize_ 1ページあたりのサイズ
   /// @return passportList パスポートリスト
-  /// @return length リスト長さ
   function getPassportList(
     uint256 page_,
     uint256 pageSize_
   )
     external
     view
-    returns (ICommunityPassport.Passport[] memory passportList, uint256 length);
+    returns (ICommunityPassport.Passport[] memory passportList);
 
   /// @dev パスポート所有者リストの取得
   /// @param page_ ページ番号
   /// @param pageSize_ 1ページあたりのサイズ
   /// @return userList パスポート所有者リスト
-  /// @return length リスト長さ
   function getUserList(
     uint256 page_,
     uint256 pageSize_
-  ) external view returns (address[] memory userList, uint256 length);
+  ) external view returns (address[] memory userList);
 
   /// @dev アドレスからパスポートURIを取得
   /// @param user_ ユーザーアドレス
