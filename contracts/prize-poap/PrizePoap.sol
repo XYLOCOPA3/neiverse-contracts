@@ -95,13 +95,12 @@ contract PrizePoap is
   /// @param page_ ページ番号
   /// @param pageSize_ 1ページあたりのサイズ
   /// @return list プライズリスト
-  /// @return length リスト長さ
   function getPrizeList(
     uint256 page_,
     uint256 pageSize_
-  ) external view returns (IPrizePoap.Prize[] memory list, uint256 length) {
+  ) external view returns (IPrizePoap.Prize[] memory list) {
     require(pageSize_ > 0, "page size must be positive");
-    length = _prizeList.length;
+    uint256 length = _prizeList.length;
     uint256 actualSize = pageSize_;
     if ((page_ + 1) * pageSize_ > length) {
       actualSize = length;

@@ -111,17 +111,16 @@ contract CommunityPassport is
   /// @param page_ ページ番号
   /// @param pageSize_ 1ページあたりのサイズ
   /// @return passportList パスポートリスト
-  /// @return length リスト長さ
   function getPassportList(
     uint256 page_,
     uint256 pageSize_
   )
     external
     view
-    returns (ICommunityPassport.Passport[] memory passportList, uint256 length)
+    returns (ICommunityPassport.Passport[] memory passportList)
   {
     require(pageSize_ > 0, "page size must be positive");
-    length = _userList.length;
+    uint256 length = _userList.length;
     uint256 actualSize = pageSize_;
     if ((page_ + 1) * pageSize_ > length) {
       actualSize = length;
@@ -137,13 +136,12 @@ contract CommunityPassport is
   /// @param page_ ページ番号
   /// @param pageSize_ 1ページあたりのサイズ
   /// @return userList パスポート所有者リスト
-  /// @return length リスト長さ
   function getUserList(
     uint256 page_,
     uint256 pageSize_
-  ) external view returns (address[] memory userList, uint256 length) {
+  ) external view returns (address[] memory userList) {
     require(pageSize_ > 0, "page size must be positive");
-    length = _userList.length;
+    uint256 length = _userList.length;
     uint256 actualSize = pageSize_;
     if ((page_ + 1) * pageSize_ > length) {
       actualSize = length;

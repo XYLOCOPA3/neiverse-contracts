@@ -64,11 +64,10 @@ interface IPrizePoap is IERC1155Upgradeable {
   /// @param page_ ページ番号
   /// @param pageSize_ 1ページあたりのサイズ
   /// @return list プライズリスト
-  /// @return length リスト長さ
   function getPrizeList(
     uint256 page_,
     uint256 pageSize_
-  ) external view returns (IPrizePoap.Prize[] memory list, uint256 length);
+  ) external view returns (IPrizePoap.Prize[] memory list);
 
   /// @dev プライズリスト長さを取得
   /// @return length プライズリスト長さ

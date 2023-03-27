@@ -69,11 +69,10 @@ interface IQuestBoard is IERC1155Upgradeable {
   /// @param page_ ページ番号
   /// @param pageSize_ 1ページあたりのサイズ
   /// @return list クエストリスト
-  /// @return length リスト長さ
   function getQuestList(
     uint256 page_,
     uint256 pageSize_
-  ) external view returns (IQuestBoard.Quest[] memory list, uint256 length);
+  ) external view returns (IQuestBoard.Quest[] memory list);
 
   /// @dev クエスト総数の取得
   /// @return totalSupply クエスト総数
