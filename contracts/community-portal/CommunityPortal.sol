@@ -76,11 +76,7 @@ contract CommunityPortal is
   function getCommunityList(
     uint256 page_,
     uint256 pageSize_
-  )
-    external
-    view
-    returns (ICommunityPortal.Community[] memory list)
-  {
+  ) external view returns (ICommunityPortal.Community[] memory list) {
     require(pageSize_ > 0, "page size must be positive");
     uint256 length = _communityList.length;
     uint256 actualSize = pageSize_;

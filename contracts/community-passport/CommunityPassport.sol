@@ -114,11 +114,7 @@ contract CommunityPassport is
   function getPassportList(
     uint256 page_,
     uint256 pageSize_
-  )
-    external
-    view
-    returns (ICommunityPassport.Passport[] memory passportList)
-  {
+  ) external view returns (ICommunityPassport.Passport[] memory passportList) {
     require(pageSize_ > 0, "page size must be positive");
     uint256 length = _userList.length;
     uint256 actualSize = pageSize_;
@@ -167,9 +163,8 @@ contract CommunityPassport is
   function tokenURI(
     uint256 passportId_
   ) public view override returns (string memory uri) {
-    uri = bytes(_passport[passportId_].passportURI).length > 0
-      ? string.concat(baseURI, _passport[passportId_].passportURI)
-      : "";
+    require(_exists(passportId_), "This token doesn't exist");
+    uri = _passport[passportId_].passportURI;
   }
 
   /// @dev アドレスからパスポートURIを取得
@@ -198,7 +193,7 @@ contract CommunityPassport is
 
   /// @dev firstURIをセット
   /// @param newState_ 新しいfirstURI
-  function setPassportURI(string memory newState_) external onlyOwnerOrAdmin {
+  function setFirstURI(string memory newState_) external onlyOwnerOrAdmin {
     string memory oldState = firstURI;
     firstURI = newState_;
     emit SetFirstURI(_msgSender(), oldState, newState_);
