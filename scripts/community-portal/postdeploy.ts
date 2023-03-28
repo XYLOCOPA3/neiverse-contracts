@@ -1,4 +1,4 @@
-import { ethers } from "hardhat";
+import { ethers, run } from "hardhat";
 import { CommunityPortal } from "../../typechain-types";
 import { calcMaxGas } from "../../utils/gas-estimation";
 import {
@@ -73,15 +73,40 @@ const _createCommunity = async (
   name: "community1" | "community2",
 ) => {
   console.log(`Create ${name}...`);
-  const community1Tx = await communityPortal.createCommunity(
-    COMMUNITY_INIT_DATA[name].name,
-    COMMUNITY_INIT_DATA[name].baseURI,
-    COMMUNITY_INIT_DATA[name].firstURI,
-    COMMUNITY_INIT_DATA[name].contractURI,
-    COMMUNITY_INIT_DATA[name].adminList,
-    `${COMMUNITY_INIT_DATA[name].baseURI}${COMMUNITY_INIT_DATA[name].firstURI}`,
-    await calcMaxGas(false),
-  );
-  await community1Tx.wait();
+  await (
+    await communityPortal.createCommunity(
+      COMMUNITY_INIT_DATA[name].name,
+      COMMUNITY_INIT_DATA[name].baseURI,
+      COMMUNITY_INIT_DATA[name].firstURI,
+      COMMUNITY_INIT_DATA[name].contractURI,
+      COMMUNITY_INIT_DATA[name].adminList,
+      `${COMMUNITY_INIT_DATA[name].baseURI}${COMMUNITY_INIT_DATA[name].firstURI}`,
+      await calcMaxGas(false),
+    )
+  ).wait();
   console.log(`Completed ${name} creation`);
+
+  // デプロイ完了直後にverifyすると失敗するので10秒待つ
+  console.log("Waiting for 10 seconds before verification...");
+  await new Promise((resolve) => setTimeout(resolve, 10000));
+
+  console.log("Verifying...");
+
+  const communityId = (await communityPortal.communitySupply()).sub(1);
+  const community = await communityPortal.getCommunity(communityId);
+  console.log("Community:", community);
+
+  try {
+    // `Error 1: Failed to verify BeaconProxy contract at 0x777503cbfb1092E30302D8d58f2a10F2637AA468: Bytecode does not match with the current version of BeaconProxy in the Hardhat Upgrades plugin.` というエラーが必ず出るが無視して良い
+    // `verify and publish` に失敗しているだけで、コントラクトは問題なくデプロイできているため
+    // TODO: コントラクト内でデプロイしたコントラクトをhardhat経由でverifyする方法を確立する
+    await run("verify:verify", {
+      address: community.passport,
+      constructorArguments: [],
+    });
+  } catch (e) {
+    console.log(e);
+  }
+
+  console.log("Completed verification");
 };

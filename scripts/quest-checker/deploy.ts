@@ -39,10 +39,14 @@ async function main() {
 
   console.log("Verifying...");
 
-  await run("verify:verify", {
-    address: questCheckerERC721.address,
-    constructorArguments: [TARGET_ERC721_ADDRESS, QUEST_BOARD_PROXY_ADDRESS],
-  });
+  try {
+    await run("verify:verify", {
+      address: questCheckerERC721.address,
+      constructorArguments: [TARGET_ERC721_ADDRESS, QUEST_BOARD_PROXY_ADDRESS],
+    });
+  } catch (e) {
+    console.log(e);
+  }
 
   console.log("Completed verification");
 
