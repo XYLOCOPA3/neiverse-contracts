@@ -1,10 +1,7 @@
 import { loadFixture } from "@nomicfoundation/hardhat-network-helpers";
 import { ethers, upgrades } from "hardhat";
 import type { Contract } from "ethers";
-import {
-  CommunityPassport,
-  CommunityPassportProxy,
-} from "../../../typechain-types";
+import { CommunityPassport } from "../../../typechain-types";
 import { getWalletAddress } from "../../utils/WalletAddress";
 
 export async function deployCommunityPassport() {
@@ -19,10 +16,7 @@ export async function deployCommunityPassport() {
   );
   await communityPassportBeacon.deployed();
 
-  // プロキシーをデプロイ
-  const CommunityPassportProxy = await ethers.getContractFactory(
-    "CommunityPassportProxy",
-  );
+  // プロキシー1をデプロイ
   const args1: CommunityPassportInitArgs = {
     name: "name1",
     symbol: "symbol1",
@@ -32,20 +26,22 @@ export async function deployCommunityPassport() {
     communityId: 0,
     adminList: [admin1.address, admin2.address],
   };
-  const data1 = CommunityPassport.interface.encodeFunctionData("initialize", [
-    args1.name,
-    args1.symbol,
-    args1.baseURI,
-    args1.firstURI,
-    args1.contractURI,
-    args1.communityId,
-    args1.adminList,
-  ]);
-  const communityPassportProxy1 = await CommunityPassportProxy.deploy(
-    communityPassportBeacon.address,
-    data1,
+  const communityPassportProxy1 = await upgrades.deployBeaconProxy(
+    communityPassportBeacon,
+    CommunityPassport,
+    [
+      args1.name,
+      args1.symbol,
+      args1.baseURI,
+      args1.firstURI,
+      args1.contractURI,
+      args1.communityId,
+      args1.adminList,
+    ],
   );
   await communityPassportProxy1.deployed();
+
+  // プロキシー2をデプロイ
   const args2: CommunityPassportInitArgs = {
     name: "name2",
     symbol: "symbol2",
@@ -55,18 +51,18 @@ export async function deployCommunityPassport() {
     communityId: 1,
     adminList: [admin1.address, admin2.address],
   };
-  const data2 = CommunityPassport.interface.encodeFunctionData("initialize", [
-    args2.name,
-    args2.symbol,
-    args2.baseURI,
-    args2.firstURI,
-    args2.contractURI,
-    args2.communityId,
-    args2.adminList,
-  ]);
-  const communityPassportProxy2 = await CommunityPassportProxy.deploy(
-    communityPassportBeacon.address,
-    data2,
+  const communityPassportProxy2 = await upgrades.deployBeaconProxy(
+    communityPassportBeacon,
+    CommunityPassport,
+    [
+      args2.name,
+      args2.symbol,
+      args2.baseURI,
+      args2.firstURI,
+      args2.contractURI,
+      args2.communityId,
+      args2.adminList,
+    ],
   );
   await communityPassportProxy2.deployed();
 
@@ -93,8 +89,8 @@ export async function deployCommunityPassport() {
 
 export type CommunityPassportArgs = {
   beacon: Contract;
-  proxy1: CommunityPassportProxy;
-  proxy2: CommunityPassportProxy;
+  proxy1: Contract;
+  proxy2: Contract;
   contract1: CommunityPassport;
   contract2: CommunityPassport;
   args1: CommunityPassportInitArgs;

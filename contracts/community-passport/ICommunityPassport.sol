@@ -91,10 +91,7 @@ interface ICommunityPassport is IERC721Upgradeable {
   function getPassportList(
     uint256 page_,
     uint256 pageSize_
-  )
-    external
-    view
-    returns (ICommunityPassport.Passport[] memory passportList);
+  ) external view returns (ICommunityPassport.Passport[] memory passportList);
 
   /// @dev パスポート所有者リストの取得
   /// @param page_ ページ番号
@@ -127,6 +124,10 @@ interface ICommunityPassport is IERC721Upgradeable {
   /// @dev ベースURIをセット
   /// @param newState_ 新しいベースURI
   function setBaseURI(string memory newState_) external;
+
+  /// @dev firstURIをセット
+  /// @param newState_ 新しいfirstURI
+  function setFirstURI(string memory newState_) external;
 
   /// @dev パスポートURIを一括セット
   /// @param userList_ ユーザーアドレスリスト
