@@ -43,10 +43,14 @@ async function main() {
 
   console.log("Verifying...");
 
-  await run("verify:verify", {
-    address: communityPassportBeacon.address,
-    constructorArguments: [],
-  });
+  try {
+    await run("verify:verify", {
+      address: communityPassportBeacon.address,
+      constructorArguments: [],
+    });
+  } catch (e) {
+    console.log(e);
+  }
 
   console.log("Completed verification");
 

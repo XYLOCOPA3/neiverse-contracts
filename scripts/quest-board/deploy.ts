@@ -48,10 +48,14 @@ async function main() {
 
   console.log("Verifying...");
 
-  await run("verify:verify", {
-    address: qustBoardProxy.address,
-    constructorArguments: [],
-  });
+  try {
+    await run("verify:verify", {
+      address: qustBoardProxy.address,
+      constructorArguments: [],
+    });
+  } catch (e) {
+    console.log(e);
+  }
 
   console.log("Completed verification");
 

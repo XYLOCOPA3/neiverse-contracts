@@ -36,10 +36,14 @@ async function main() {
 
   console.log("Verifying...");
 
-  await run("verify:verify", {
-    address: questCheckerCreater.address,
-    constructorArguments: [],
-  });
+  try {
+    await run("verify:verify", {
+      address: questCheckerCreater.address,
+      constructorArguments: [],
+    });
+  } catch (e) {
+    console.log(e);
+  }
 
   console.log("Completed verification");
 

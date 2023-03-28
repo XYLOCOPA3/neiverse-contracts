@@ -2,9 +2,9 @@
 pragma solidity ^0.8.18;
 
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
+import {BeaconProxy} from "@openzeppelin/contracts/proxy/beacon/BeaconProxy.sol";
 
 import {ICommunityPassportCreater} from "./ICommunityPassportCreater.sol";
-import {CommunityPassportProxy} from "../community-passport/CommunityPassportProxy.sol";
 import {ICommunityPassport} from "../community-passport/ICommunityPassport.sol";
 
 /// @title CommunityPassportCreater
@@ -71,10 +71,7 @@ contract CommunityPassportCreater is ICommunityPassportCreater, Ownable {
       communityId_,
       adminList_
     );
-    CommunityPassportProxy proxy = new CommunityPassportProxy(
-      communityPassportBeacon,
-      data
-    );
+    BeaconProxy proxy = new BeaconProxy(communityPassportBeacon, data);
     passportAddr = address(proxy);
     ICommunityPassport passport = ICommunityPassport(passportAddr);
     address msgSender = _msgSender();

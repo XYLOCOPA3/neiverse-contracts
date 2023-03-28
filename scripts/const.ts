@@ -10,7 +10,7 @@ export const COMMUNITY_PASSPORT_BEACON_ADDRESS =
 // --------------------------------------------------
 
 export const COMMUNITY_PASSPORT_CREATER_ADDRESS =
-  "0x4d18f0B122dEa961c46163e27fD7aC129d4Bd10d";
+  "0xeeb2dBA5bc1384e83f824cE63Cb76AcF5d5bc851";
 
 // --------------------------------------------------
 // CommunityPortal

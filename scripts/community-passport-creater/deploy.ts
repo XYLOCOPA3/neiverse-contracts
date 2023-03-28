@@ -38,10 +38,14 @@ async function main() {
 
   console.log("Verifying...");
 
-  await run("verify:verify", {
-    address: communityPassportCreater.address,
-    constructorArguments: [COMMUNITY_PASSPORT_BEACON_ADDRESS],
-  });
+  try {
+    await run("verify:verify", {
+      address: communityPassportCreater.address,
+      constructorArguments: [COMMUNITY_PASSPORT_BEACON_ADDRESS],
+    });
+  } catch (e) {
+    console.log(e);
+  }
 
   console.log("Completed verification");
 

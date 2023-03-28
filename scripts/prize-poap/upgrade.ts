@@ -36,10 +36,14 @@ async function main() {
 
   console.log("Verifying...");
 
-  await run("verify:verify", {
-    address: PRIZE_POAP_PROXY_ADDRESS,
-    constructorArguments: [],
-  });
+  try {
+    await run("verify:verify", {
+      address: PRIZE_POAP_PROXY_ADDRESS,
+      constructorArguments: [],
+    });
+  } catch (e) {
+    console.log(e);
+  }
 
   console.log("Completed verification");
 

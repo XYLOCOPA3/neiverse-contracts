@@ -34,10 +34,14 @@ async function main() {
 
   console.log("Verifying...");
 
-  await run("verify:verify", {
-    address: questPoap.address,
-    constructorArguments: [],
-  });
+  try {
+    await run("verify:verify", {
+      address: questPoap.address,
+      constructorArguments: [],
+    });
+  } catch (e) {
+    console.log(e);
+  }
 
   console.log("Completed verification");
 
